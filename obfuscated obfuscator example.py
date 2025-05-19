@@ -1,159 +1,154 @@
 # this isn't obfuscated using my obfuscator, because it doesn't support obfuscation of an actual obfuscator
 
-import ast as vAQuWsxt
-import random as ALYQxuRe
-import string as gAVTWaXD
+import ast as a
+import random as b
+import string as c
 
-def dPnfiuyC(length=8):
-    return ''.join(ALYQxuRe.choices(gAVTWaXD.ascii_letters, k=length))
+def d(e=8):
+    return ''.join(b.choices(c.ascii_letters, k=e))
 
-def JIXMaVbK(BVzHzkdc):
-    LYAdgVNF = ''.join([chr(i) for i in [112, 114, 105, 110, 116]])
-    eval(f"{LYAdgVNF}({repr(BVzHzkdc)})")
+def f(g):
+    h = ''.join([chr(i) for i in [112, 114, 105, 110, 116]])
+    eval(f"{h}({repr(g)})")
 
-class ZmBExlYO(vAQuWsxt.NodeTransformer):
-    def __init__(rlddyWSN):
-        rlddyWSN.qGgtFZnb = {}
-        rlddyWSN.YTxHgvdS = set()
-        rlddyWSN.DApwmQol = {}
-        rlddyWSN.YTxHgvdS.update({
-            'JIXMaVbK', 'LYAdgVNF', 'BVzHzkdc', 'chr', 'eval', 'cYxKzNuL', 'input',
-            'yBNCuEZq', 'SxgrwDEa', 'vAQuWsxt', 'ZmBExlYO',
-            'ALYQxuRe', 'gAVTWaXD', 'dPnfiuyC', '__name__', '__main__'
-        })
+class i(a.NodeTransformer):
+    def __init__(j):
+        j.k = {}
+        j.l = set()
+        j.m = {}
+        j.l.update({'f','h','g','chr','eval','n','input','o','p','a','i','b','c','d','__name__','__main__'})
 
-    def SygZCEjl(DwNBglQo, jfnEjPHp):
-        return jfnEjPHp in dir(__builtins__)
+    def q(r,s):
+        return s in dir(__builtins__)
 
-    def oUxFLCem(jAzpgVKi, tpEfsGZv):
-        if tpEfsGZv not in jAzpgVKi.qGgtFZnb:
-            jAzpgVKi.qGgtFZnb[tpEfsGZv] = dPnfiuyC()
-        return jAzpgVKi.qGgtFZnb[tpEfsGZv]
+    def t(u,v):
+        if v not in u.k:
+            u.k[v] = d()
+        return u.k[v]
 
-    def hEQvWcBJ(gOdxuqiA, AvftUYbQ):
-        return vAQuWsxt.Call(
-            func=vAQuWsxt.Attribute(
-                value=vAQuWsxt.Constant(value=''),
-                attr='join',
-                ctx=vAQuWsxt.Load()
-            ),
-            args=[vAQuWsxt.List(
-                elts=[
-                    vAQuWsxt.Call(
-                        func=vAQuWsxt.Name(id='chr', ctx=vAQuWsxt.Load()),
-                        args=[vAQuWsxt.Constant(value=ord(c))],
-                        keywords=[]
-                    ) for c in AvftUYbQ
-                ],
-                ctx=vAQuWsxt.Load()
-            )],
+    def w(x,y):
+        return a.Call(
+            func=a.Attribute(value=a.Constant(value=''), attr='join', ctx=a.Load()),
+            args=[a.List(
+                elts=[a.Call(
+                    func=a.Name(id='chr', ctx=a.Load()),
+                    args=[a.Constant(value=ord(z))],
+                    keywords=[]) for z in y],
+                ctx=a.Load())],
             keywords=[]
         )
 
-    def visit_Import(EpTczrFW, node):
-        for n in node.names:
-            EpTczrFW.YTxHgvdS.add(n.asname or n.name.split('.')[0])
-        return node
+    def visit_Import(A,B):
+        for C in B.names:
+            A.l.add(C.asname or C.name.split('.')[0])
+        return B
 
-    def visit_ImportFrom(zItvUdnp, node):
-        for n in node.names:
-            zItvUdnp.YTxHgvdS.add(n.asname or n.name)
-        return node
+    def visit_ImportFrom(D,E):
+        for F in E.names:
+            D.l.add(F.asname or F.name)
+        return E
 
-    def visit_FunctionDef(EobfAmCg, node):
-        if node.name not in EobfAmCg.YTxHgvdS:
-            node.name = EobfAmCg.oUxFLCem(node.name)
-        for arg in node.args.args:
-            if arg.arg not in ('self',) and arg.arg not in EobfAmCg.YTxHgvdS:
-                arg.arg = EobfAmCg.oUxFLCem(arg.arg)
-        EobfAmCg.generic_visit(node)
-        return node
+    def visit_FunctionDef(G,H):
+        if H.name not in G.l:
+            H.name = G.t(H.name)
+        for I in H.args.args:
+            if I.arg not in ('self',) and I.arg not in G.l:
+                I.arg = G.t(I.arg)
+        G.generic_visit(H)
+        return H
 
-    def visit_ClassDef(XEyuwblc, node):
-        if node.name not in XEywblc.YTxHgvdS:
-            node.name = XEywblc.oUxFLCem(node.name)
-        XEywblc.generic_visit(node)
-        return node
+    def visit_ClassDef(J,K):
+        if K.name not in J.l:
+            K.name = J.t(K.name)
+        J.generic_visit(K)
+        return K
 
-    def visit_Name(PEUrMfNb, node):
-        if node.id in PEUrMfNb.YTxHgvdS or PEUrMfNb.SygZCEjl(node.id):
-            return node
-        if isinstance(node.ctx, (vAQuWsxt.Load, vAQuWsxt.Store, vAQuWsxt.Del)):
-            node.id = PEUrMfNb.oUxFLCem(node.id)
-        return node
+    def visit_Name(L,M):
+        if M.id in L.l or L.q(M.id):
+            return M
+        if isinstance(M.ctx, (a.Load, a.Store, a.Del)):
+            M.id = L.t(M.id)
+        return M
 
-    def visit_Attribute(ZZPbNQVx, node):
-        ZZPbNQVx.generic_visit(node)
-        if isinstance(node.value, vAQuWsxt.Name) and node.value.id == 'self':
-            if node.attr not in ZZPbNQVx.DApwmQol:
-                ZZPbNQVx.DApwmQol[node.attr] = dPnfiuyC()
-            node.attr = ZZPbNQVx.DApwmQol[node.attr]
-        return node
+    def visit_Attribute(N,O):
+        N.generic_visit(O)
+        if isinstance(O.value, a.Name) and O.value.id == 'self':
+            if O.attr not in N.m:
+                N.m[O.attr] = d()
+            O.attr = N.m[O.attr]
+        return O
 
-    def visit_Expr(LRgQbUCF, node):
-        if isinstance(node.value, vAQuWsxt.Constant) and isinstance(node.value.value, str):
+    def visit_Expr(P,Q):
+        if isinstance(Q.value, a.Constant) and isinstance(Q.value.value, str):
             return None
-        return LRgQbUCF.generic_visit(node)
+        return P.generic_visit(Q)
 
-    def visit_Call(PTwEFZXq, node):
-        PTwEFZXq.generic_visit(node)
-        if isinstance(node.func, vAQuWsxt.Name) and node.func.id == 'print':
-            if len(node.args) == 1 and isinstance(node.args[0], vAQuWsxt.Constant) and isinstance(node.args[0].value, str):
-                text = node.args[0].value
-                payload = f"print({repr(text)})"
-                return vAQuWsxt.Expr(
-                    value=vAQuWsxt.Call(
-                        func=vAQuWsxt.Name(id='eval', ctx=vAQuWsxt.Load()),
-                        args=[PTwEFZXq.hEQvWcBJ(payload)],
+    def visit_Call(R,S):
+        R.generic_visit(S)
+        if isinstance(S.func, a.Name) and S.func.id == 'print':
+            if len(S.args) == 1 and isinstance(S.args[0], a.Constant) and isinstance(S.args[0].value, str):
+                T = S.args[0].value
+                U = f"print({repr(T)})"
+                return a.Expr(
+                    value=a.Call(
+                        func=a.Name(id='eval', ctx=a.Load()),
+                        args=[R.w(U)],
                         keywords=[]
                     )
                 )
-        return node
+        return S
 
-    def visit_Constant(aHeESuGf, node):
-        if isinstance(node.value, str):
-            parent = getattr(node, 'parent', None)
-            if parent and isinstance(parent, vAQuWsxt.JoinedStr):
-                return node
-            return aHeESuGf.hEQvWcBJ(node.value)
-        return node
+    def visit_Constant(V,W):
+        if isinstance(W.value, str):
+            X = getattr(W, 'parent', None)
+            if X and isinstance(X, a.JoinedStr):
+                return W
+            return V.w(W.value)
+        return W
 
-    def visit_JoinedStr(YUMEkDwV, node):
-        for value in node.values:
-            value.parent = node
-        return node
+    def visit_JoinedStr(Y,Z):
+        for aa in Z.values:
+            aa.parent = Z
+        return Z
 
-def cYxKzNuL(node):
-    for child in vAQuWsxt.iter_child_nodes(node):
-        child.parent = node
-        cYxKzNuL(child)
+def n(ab):
+    for ac in a.iter_child_nodes(ab):
+        ac.parent = ab
+        n(ac)
 
-def yBNCuEZq():
-    JIXMaVbK(''.join([chr(i) for i in [69, 110, 116, 101, 114, 32, 99, 111, 100, 101, 58]]))
-    JIXMaVbK(''.join([chr(i) for i in [40, 70, 105, 110, 105, 115, 104, 32, 119, 105, 116, 104, 32, 69, 78, 68, 41, 58]]))
-    LZZKgNBc = []
+def o():
+    f(''.join([chr(i) for i in [69,110,116,101,114,32,99,111,100,101,58]]))
+    f(''.join([chr(i) for i in [40,70,105,110,105,115,104,32,119,105,116,104,32,69,78,68,41,58]]))
+    ad = []
     while True:
         try:
-            qPmpfBFo = input()
+            ae = input()
         except EOFError:
             break
-        if qPmpfBFo.strip() == 'END':
+        if ae.strip() == 'END':
             break
-        LZZKgNBc.append(qPmpfBFo)
-    return '\n'.join(LZZKgNBc)
+        ad.append(ae)
+    return '\n'.join(ad)
 
-def SxgrwDEa(code):
-    return '\n'.join([line.rstrip() for line in code.strip().split('\n') if line.strip()])
+def p(af):
+    return '\n'.join([ag.rstrip() for ag in af.strip().split('\n') if ag.strip()])
 
 if __name__ == '__main__':
-    UyuygSRo = yBNCuEZq()
-    hXjZGErs = vAQuWsxt.parse(UyuygSRo)
-    cYxKzNuL(hXjZGErs)
-    vNyiRjAc = ZmBExlYO()
-    YpLBdRfX = vNyiRjAc.visit(hXjZGErs)
-    vAQuWsxt.fix_missing_locations(YpLBdRfX)
-    DzFElIti = vAQuWsxt.unparse(YpLBdRfX)
-    XxdHmvKl = SxgrwDEa(DzFElIti)
+    ah = o()
+    try:
+        ai = a.parse(ah)
+    except SyntaxError as aj:
+        f(''.join([chr(i) for i in [83,121,110,116,97,120,32,69,114,114,111,114,58]]))
+        f(str(aj))
+        exit(1)
 
-    JIXMaVbK('\n' + ''.join([chr(i) for i in [79, 98, 102, 117, 115, 99, 97, 116, 101, 100, 32, 67, 111, 100, 101, 58]]) + '\n')
-    JIXMaVbK(XxdHmvKl)
+    n(ai)
+    ak = i()
+    al = ak.visit(ai)
+    a.fix_missing_locations(al)
+    am = a.unparse(al)
+    an = p(am)
+
+    f('\n' + ''.join([chr(i) for i in [79,98,102,117,115,99,97,116,101,100,32,67,111,100,101,58]]) + '\n')
+    f(an)
+
