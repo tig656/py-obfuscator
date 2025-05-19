@@ -1,3 +1,5 @@
+# this isn't obfuscated using my obfuscator, because it doesn't support obfuscation of an actual obfuscator
+
 import ast as vAQuWsxt
 import random as ALYQxuRe
 import string as gAVTWaXD
