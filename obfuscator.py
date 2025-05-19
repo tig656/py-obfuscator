@@ -118,8 +118,13 @@ class Obfuscator(ast.NodeTransformer):
         return node
 
     def visit_JoinedStr(self, node):
+        # ✅ Fix applied here
+        new_values = []
         for value in node.values:
-            value.parent = node
+            if isinstance(value, ast.FormattedValue):
+                value.value = self.visit(value.value)
+            new_values.append(value)
+        node.values = new_values
         return node
 
 def set_parents(node):
