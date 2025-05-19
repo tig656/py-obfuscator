@@ -12,3 +12,7 @@ paste your python code you want to obfuscate
 then type END and wait for it to be obfuscated
 
 then just copy the code and do what you please with it
+
+**MISC**
+
+you can also use the obfuscated obfuscator but it may be slower
