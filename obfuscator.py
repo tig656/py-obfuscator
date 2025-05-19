@@ -146,7 +146,13 @@ def clean_code(code):
 
 if __name__ == '__main__':
     src = get_input()
-    tree = ast.parse(src)
+    try:
+        tree = ast.parse(src)
+    except SyntaxError as e:
+        _p(''.join([chr(i) for i in [83, 121, 110, 116, 97, 120, 32, 69, 114, 114, 111, 114, 58]]))
+        _p(str(e))
+        exit(1)
+
     set_parents(tree)
     ob = Obfuscator()
     new_tree = ob.visit(tree)
